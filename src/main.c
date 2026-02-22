@@ -75,7 +75,7 @@ void	app_main(void) {
 		// Check for button press event
 		if (button_pressed(button_state)){
 			toggle_led();
-			printf("Button pressed! LEDtoggled.\n");
+			printf("Button pressed! LED toggled.\n");
 		}
 
 		// Small delayfor debouncing and to preserve cpu hogging
