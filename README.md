@@ -41,8 +41,6 @@ A simple yet fundamental ESP32-IDF project demonstrating digital input/output co
 
 ## 📐 Circuit Diagram
 
-## 📐 Circuit Diagram
-
 ```
                     ESP32 DevKit v1
                    ┌─────────────┐
