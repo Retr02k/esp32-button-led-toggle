@@ -340,6 +340,5 @@ This project is open source and available under the MIT License.
 
 ---
 
-**Made with ❤️ for ESP32 beginners**
 
 *If you found this helpful, please ⭐ star the repository!*
