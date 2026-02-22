@@ -149,7 +149,7 @@ LED Circuit (GPIO 5):
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/esp32-gpio-led-toggle.git
+git clone https://github.com/Retr02k/esp32-gpio-led-toggle.git
 cd esp32-gpio-led-toggle
 ```
 
