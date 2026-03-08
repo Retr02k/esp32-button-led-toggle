@@ -4,7 +4,6 @@ A simple yet fundamental ESP32-IDF project demonstrating digital input/output co
 
 ![ESP32](https://img.shields.io/badge/ESP32-ESP--IDF-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![PlatformIO](https://img.shields.io/badge/PlatformIO-ready-orange)
 
 ## 📋 Table of Contents
 - [Features](#-features)
@@ -143,8 +142,8 @@ LED Circuit (GPIO 5):
 ## 💾 Installation
 
 ### Prerequisites
-- [PlatformIO](https://platformio.org/) installed in VS Code
-- USB cable for ESP32
+- [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/) (v4.4 or later)
+- USB cable for ESP32- USB cable for ESP32
 - CP2102 or similar USB-to-Serial driver installed
 
 ### Clone the Repository
@@ -199,74 +198,71 @@ void toggle_led(){
 ## 📁 Project Structure
 
 ```
-Project_1_ESP32_Inputs_Outputs/
-├── src/
-│   └── main.c              # Main application code
-├── include/
-│   └── README              # Header files directory
-├── lib/
-│   └── README              # Project libraries
-├── test/
-│   └── README              # Unit tests
-├── platformio.ini          # PlatformIO configuration
-├── CMakeLists.txt          # CMake configuration
-├── sdkconfig.esp32doit-devkit-v1  # ESP-IDF SDK config
-└── README.md               # This file
+button_led_toggle/
+├── main/
+│   ├── main.c              # Main application code
+│   └── CMakeLists.txt      # Main component CMake
+├── CMakeLists.txt          # Project CMake configuration
+├── sdkconfig               # ESP-IDF SDK configuration
+└── README.md
 ```
 
 ## 🔨 Building and Flashing
 
-### Using VS Code with PlatformIO Extension
+### Using ESP-IDF Command Line
 
-This is the recommended method if you're using VS Code:
+1. **Set up ESP-IDF environment**
+   ```bash
+   # Navigate to your ESP-IDF installation directory
+   . $HOME/esp/esp-idf/export.sh
+   ```
 
-1. **Open Project**
-   - Open the project folder in VS Code
-   - PlatformIO will automatically detect the project
+2. **Configure the project** (optional, first time only)
+   ```bash
+   idf.py menuconfig
+   ```
 
-2. **Build the Project**
-   - Click the **checkmark (✓)** icon in the bottom toolbar
-   - Or: Click "Build" in the PlatformIO sidebar
+3. **Build the project**
+   ```bash
+   idf.py build
+   ```
 
-3. **Upload to ESP32**
-   - Connect ESP32 via USB
-   - Click the **arrow (→)** icon in the bottom toolbar
-   - Or: Click "Upload" in the PlatformIO sidebar
+4. **Flash to ESP32**
+   ```bash
+   # Replace /dev/ttyUSB0 with your ESP32 port
+   idf.py -p /dev/ttyUSB0 flash
+   ```
 
-4. **Open Serial Monitor**
-   - Click the **plug** icon in the bottom toolbar
-   - Or: Click "Monitor" in the PlatformIO sidebar
-   - Baud rate is automatically set to 115200
+5. **Open Serial Monitor**
+   ```bash
+   idf.py -p /dev/ttyUSB0 monitor
+   ```
 
-![PlatformIO Toolbar](https://docs.platformio.org/en/latest/_images/platformio-ide-vscode-build-project.png)
+6. **Build, Flash, and Monitor (all in one)**
+   ```bash
+   idf.py -p /dev/ttyUSB0 flash monitor
+   ```
 
-**Quick shortcuts:**
-- Build: `Ctrl+Alt+B` (Linux/Windows) / `Cmd+Alt+B` (Mac)
-- Upload: `Ctrl+Alt+U` / `Cmd+Alt+U`
-- Serial Monitor: `Ctrl+Alt+S` / `Cmd+Alt+S`
+**Quick tips:**
+- Press `Ctrl+]` to exit the serial monitor
+- Use `idf.py -p PORT flash monitor` for complete workflow
+- Find your port with `ls /dev/ttyUSB*` or `ls /dev/ttyACM*`
 
-### Alternative: Command Line (Optional)
+### Alternative: Using VS Code with ESP-IDF Extension
 
-If you prefer terminal commands:
-
-```bash
-# Build the project
-pio run
-
-# Upload to ESP32
-pio run --target upload
-
-# Open serial monitor
-pio device monitor
-
-# Build + Upload + Monitor (all in one)
-pio run --target upload && pio device monitor
+1. Install the [ESP-IDF VS Code Extension](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension)
+2. Open the project folder
+3. Use the ESP-IDF buttons in the status bar:
+   - 🔨 **Build** - Compile project
+   - 📤 **Flash** - Upload to ESP32
+   - 📺 **Monitor** - View serial output
+4. Or use Command Palette (`Ctrl+Shift+P`):
+   - **ESP-IDF: Build your project**
+   - **ESP-IDF: Flash your project**
+   - **ESP-IDF: Monitor your device**
 ```
 
-> **Note**: Command-line method requires PlatformIO Core installed separately.
-
-> **💡 Tip**: This project was developed using VS Code with PlatformIO extension. 
-> The GUI method is recommended for beginners!
+> **💡 Tip**: The GUI method is recommended for beginners and provides a more user-friendly experience!
 
 ## 📺 Serial Monitor Output
 
@@ -300,9 +296,10 @@ Button pressed! LED toggled.
 - ✅ Try pressing EN (reset) button on ESP32
 
 ### ESP32 won't flash
-- ✅ Hold BOOT button while connecting USB
+- ✅ Hold BOOT button while running `idf.py flash`
 - ✅ Press EN button to reset
 - ✅ Check USB port permissions (Linux: `sudo usermod -a -G dialout $USER`)
+- ✅ Verify ESP-IDF is properly sourced: `. $HOME/esp/esp-idf/export.sh`
 
 ## 🎓 Learning Outcomes
 
@@ -315,7 +312,7 @@ By completing this project, you'll understand:
 - ✅ LED current limiting with resistors
 - ✅ FreeRTOS task delays
 - ✅ Serial debugging with `printf()`
-- ✅ PlatformIO/ESP-IDF project structure
+- ✅ ESP-IDF project structure and build system
 
 ## 🚀 Next Steps
 
